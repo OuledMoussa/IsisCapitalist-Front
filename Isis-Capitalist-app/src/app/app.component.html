@@ -1,9 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:left">
-  <img [attr.src]="world.logo" />
+  <img class="round" [attr.src]="server+world.logo" />
   <span id="worldname"> {{world.name}} </span>
+  <span [innerHTML]="world.money | bigvalue"> </span>
 </div> 
-<app-product [prod]="world.products.product[0]" class="product col-md-6"></app-product>
+<app-product [prod]="world.products.product[0]" class="product col-md-12">
+</app-product>
 
 
 
