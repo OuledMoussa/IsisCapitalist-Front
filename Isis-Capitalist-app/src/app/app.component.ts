@@ -8,12 +8,18 @@ import { World, Product, Pallier } from './world';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
   world: World = new World(); 
   server: string;
+  qtmulti: string;
+
 
   constructor(private service : RestserviceService) {
     this.server = service.getServer();
     service.getWorld().then(world => { this.world = world; });
+  }
+
+  onProductionDone(p: Product) {
+    this.world.score += p.revenu;
+    this.world.money += p.revenu;
   }
 }

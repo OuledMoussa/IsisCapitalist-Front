@@ -3,8 +3,9 @@
   <img class="round" [attr.src]="server+world.logo" />
   <span id="worldname"> {{world.name}} </span>
   <span [innerHTML]="world.money | bigvalue"> </span>
+  <button type="button" class="btn btn-dark float-right" >{{qtmulti}}</button>
 </div> 
-<app-product [prod]="world.products.product[0]" class="product col-md-12">
+<app-product [qtmulti]="qtmulti" [prod]="world.products.product[0]" (notifyProduction)="onProductionDone($event)" class="product col-md-12">
 </app-product>
 
 

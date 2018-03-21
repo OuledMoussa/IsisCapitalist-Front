@@ -3,7 +3,9 @@ import { Product, World } from '../world';
 import { Input } from '@angular/core';
 import { RestserviceService } from '../restservice.service';
 import { ViewChild } from '@angular/core';
-import { setInterval } from 'timers';
+import { Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+
 
 declare var require; 
 const ProgressBar = require("progressbar.js");
@@ -20,6 +22,7 @@ export class ProductComponent implements OnInit {
   progressbar: any;
   lastupdate: any;
   world: World;
+  _qtmulti:string;
 
   @ViewChild('bar') progressBarItem;
 
@@ -28,6 +31,17 @@ export class ProductComponent implements OnInit {
     this.product = value;
   }
 
+  @Input()
+  set qtmulti(value: string) {
+    this._qtmulti = value;
+    if (this._qtmulti && this.product)
+      this.calcMaxCanBuy();
+  }
+
+  @Output() 
+  notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
+  
+  
   constructor(private service : RestserviceService) { 
     this.server = service.getServer();
   }
@@ -35,19 +49,17 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     this.progressbar = new ProgressBar.Line(this.progressBarItem.nativeElement, 
       { strokeWidth: 50, color: '#00ff00' });
-    //this.progressbar.set(0.5);
-
-    setInterval(() => { this.calcScore(); }, 100); 
-    //setInterval(() => { alert('a'); }, 1000);
+    setInterval(() => { this.calcScore(); }, 100);
   }
 
   calcScore(){
     if (this.product.timeleft!=0){
-      this.product.timeleft = Date.now()-this.lastupdate;
-      //console.log(Date.now());
+      this.product.timeleft -= Date.now()-this.lastupdate ;
+      this.lastupdate=Date.now();
+      console.log(this.product.timeleft);
       if (this.product.timeleft <= 0) {
-        this.world.score += this.product.revenu;
         this.progressbar.set(0);
+        this.notifyProduction.emit(this.product);
         this.product.timeleft=0;
       }
     }
@@ -56,8 +68,9 @@ export class ProductComponent implements OnInit {
   startFabrication(){
     if (this.product.quantite!=0) {
       this.product.timeleft=this.product.vitesse;
+      console.log(this.product.timeleft);
       this.progressbar.animate(1, { duration: this.product.vitesse });
-      this.lastupdate=Date.now;
+      this.lastupdate=Date.now();
     }
     //alert(this.product.vitesse);
     
