@@ -5,6 +5,11 @@
     border-radius: 50px;
 }
 
+.darwin{
+    color:grey ;
+    font-size: 200%;
+}
+
 .lesdeux { 
     position: relative; 
 } 
@@ -18,4 +23,8 @@
     /* on met cet élément à 10 pixels du bas de son conteneur 
     // du coup il se superpose à l’autre qui est dans le flux normal */
     bottom: -10px;
-    }
+}
+
+body{
+    background-color: lightgrey;
+}

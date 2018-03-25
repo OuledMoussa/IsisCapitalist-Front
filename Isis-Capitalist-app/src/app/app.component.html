@@ -1,12 +1,31 @@
 <!--The content below is only a placeholder and can be replaced.-->
+<br/><br/>
 <div style="text-align:left">
   <img class="round" [attr.src]="server+world.logo" />
-  <span id="worldname"> {{world.name}} </span>
+  <span class="darwin" id="worldname"> {{world.name}} </span>
   <span [innerHTML]="world.money | bigvalue"> </span>
-  <button type="button" class="btn btn-dark float-right" >{{qtmulti}}</button>
+  <!--<img class="round" [attr.src]="server+world.logo" /> Mettre image de l'argent-->
+  <button type="button" class="btn btn-dark float-right" >{{qtmulti}} Test</button>
 </div> 
-<app-product [qtmulti]="qtmulti" [prod]="world.products.product[0]" (notifyProduction)="onProductionDone($event)" class="product col-md-12">
-</app-product>
+<br/><br/><br/>
+<div class="col-md-1">
+
+</div>
+<div class="col-md-1">
+
+</div>
+<div class="col-md-10 ">
+  <div class="col-md-6 ">
+    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[0]" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
+    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[1]" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
+    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[2]" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
+  </div>
+  <div class="col-md-6 ">
+    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[3]" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
+    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[4]" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
+    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[5]" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
+  </div>
+</div>
 
 
 

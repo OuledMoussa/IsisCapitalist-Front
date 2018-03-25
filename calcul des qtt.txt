@@ -1,0 +1,5 @@
+cout achat qtt = (cout * (1 -croissance ^qt)/(1 - croissance) pour 1 produit
+
+qtt = (log (1 -(money/cout) * (1-croissance) )):( log (croissance)) 
+	ou 
+	qtt = (log (1 -(money/cout))* (1-croissance) ):( log (croissance)) pour produit max 
