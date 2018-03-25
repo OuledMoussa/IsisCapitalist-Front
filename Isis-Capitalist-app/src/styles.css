@@ -6,8 +6,9 @@
 }
 
 .darwin{
-    color:grey ;
+    color:rgba(29, 16, 16, 0.993) ;
     font-size: 200%;
+    font-weight: bold;
 }
 
 .lesdeux { 
@@ -26,5 +27,5 @@
 }
 
 body{
-    background-color: lightgrey;
+    background-color: rgba(133, 140, 145, 0.582);
 }

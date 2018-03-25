@@ -1,19 +1,54 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <br/><br/>
-<div style="text-align:left">
-  <img class="round" [attr.src]="server+world.logo" />
-  <span class="darwin" id="worldname"> {{world.name}} </span>
-  <span [innerHTML]="world.money | bigvalue"> </span>
-  <!--<img class="round" [attr.src]="server+world.logo" /> Mettre image de l'argent-->
-  <button type="button" class="btn btn-dark float-right" >{{qtmulti}} Test</button>
+<div class="col-md-12 ">
+  <div class="col-md-6">
+      <img class="round" [attr.src]="server+world.logo" />
+      <span class="darwin" id="worldname"> {{world.name}} </span>
+  </div>
+  <div class="col-md-2 ">
+    <span [innerHTML]="world.money | bigvalue"> </span> 
+    <img src="https://www.faire-livrer-des-fleurs.com/130-large_default/couronne-de-fleurs-deuil-roses-memoire.jpg" style="border-radius :50%;
+    padding:5px; height:70px;"/> 
+  </div>
+  <div class="col-md-4 ">
+      <button type="button" class="btn btn-dark float-right" >{{qtmulti}} Quantité à acheter</button>
+      <!--<label>Votre identifiant</label> : <input [()]="tag" placeholder="nom utilisateur" (change)=""/>-->
+  </div>
 </div> 
 <br/><br/><br/>
-<div class="col-md-1">
 
-</div>
+<!--Bouttons à gauche-->
 <div class="col-md-1">
-
+  <br/><br/>
+  <button type="button" class="btn btn-darkk float-right" >Unlocks</button>
+  <br/><br/>
+  <button type="button" class="btn btn-dark float-right" >Cash Upgrades</button>
+  <br/><br/>
+  <button type="button" class="btn btn-dark float-right" >Angel Upgrades</button>
+  <br/><br/>
+  <button type="button" class="btn btn-dark float-right" data-toggle="modal" (click)="managersModal.show()" >Managers</button>
+  <br/><br/>
+  <button type="button" class="btn btn-dark float-right" >Investors</button>
 </div>
+<!--Fin des bouttons -->
+
+<!--Modal des managers -->
+<app-modal #managersModal> 
+  <div class="app-modal-header"> 
+    <h4 class="modal-title">Managers make you feel better or no !</h4> 
+  </div> 
+  <div class="app-modal-body"> 
+    <div *ngFor="let manager of world.managers.pallier">
+      insérer ici les managers 
+    </div> 
+  </div> 
+  <div class="app-modal-footer"> 
+     <button type="button" class="btn btn-default" (click)="managersModal.hide()">Close</button> 
+  </div>    
+</app-modal>
+<!--Modal des managers -->
+
+  <!--Liste des produits -->
 <div class="col-md-10 ">
   <div class="col-md-6 ">
     <app-product [qtmulti]="qtmulti" [prod]="world.products.product[0]" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
@@ -26,6 +61,7 @@
     <app-product [qtmulti]="qtmulti" [prod]="world.products.product[5]" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
   </div>
 </div>
+<!--Fin liste des produits -->
 
 
 
