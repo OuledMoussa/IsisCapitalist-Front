@@ -43,19 +43,19 @@ export class ProductComponent implements OnInit {
   calcMaxCanBuy() {
     console.log(this._etat);
     switch(this._qtmulti) {
-      case "X1":
+      case "Buy X1":
         this.prix=this.product.cout;
         this.nbAchat=1;
         break;
-      case "X10":
+      case "Buy X10":
         this.prix=this.product.cout*((1-Math.pow(this.product.croissance, 11) )/ (1-this.product.croissance));
         this.nbAchat=10;
         break;
-      case "X100":
+      case "Buy X100":
         this.prix=this.product.cout*((1-Math.pow(this.product.croissance, 101) )/ (1-this.product.croissance));
         this.nbAchat=100;
         break;
-      case "MAX":
+      case "Buy MAX":
         this.nbAchat = Math.log(1-(this._money/this.product.cout)*(1-this.product.croissance))/Math.log(this.product.croissance);
         this.prix=this.product.cout*((1-Math.pow(this.product.croissance, this.nbAchat+1) )/ (1-this.product.croissance));
         break;
@@ -72,9 +72,9 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.progressbar = new ProgressBar.Line(this.progressBarItem.nativeElement, 
-      { strokeWidth: 50, color: 'black' });
-    setInterval(() => { this.calcScore(); }, 100);
-    this.calcMaxCanBuy();
+      { strokeWidth: 50, color: 'grey' });
+    setInterval(() => { this.calcScore(); this.calcMaxCanBuy();
+    }, 100);
   }
 
   calcScore(){

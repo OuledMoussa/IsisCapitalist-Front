@@ -13,7 +13,7 @@ import { EventEmitter } from '@angular/core';
 export class AppComponent {
   world: World = new World(); 
   server: string;
-  qtmulti: string = "X1";
+  qtmulti: string = "Buy X1";
   money: number;
   etat: number = 0;
 
@@ -33,16 +33,16 @@ export class AppComponent {
     if (this.etat>3) this.etat=0;
     switch(this.etat) {
       case 0:
-        this.qtmulti = "X1";
+        this.qtmulti = "Buy X1";
         break;
       case 1:
-        this.qtmulti = "X10";
+        this.qtmulti = "Buy X10";
         break;
       case 2:
-        this.qtmulti = "X100";
+        this.qtmulti = "Buy X100";
         break;
       case 3:
-        this.qtmulti = "MAX";
+        this.qtmulti = "Buy MAX";
         break;
     }
   }

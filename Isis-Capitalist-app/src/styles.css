@@ -19,6 +19,23 @@
     position: absolute;
 }
 
+.texte_revenu { 
+    color:black;
+    position: absolute;
+    float: right;
+
+     
+} 
+
+.barre {
+}
+
+.manager{
+    border: 1px outset rgb(20, 20, 20)  !important;
+
+}
+
+
 .lesecond { 
     position: absolute; 
     /* on met cet élément à 10 pixels du bas de son conteneur 
@@ -28,4 +45,14 @@
 
 body{
     background-color: rgba(133, 140, 145, 0.582);
+}
+
+.money_world{
+    font-size: 200%;
+    font-weight: bold;
+}
+
+.app-modal-body{
+    height: 500px;
+    overflow-y: auto;
 }

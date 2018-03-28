@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="col-md-3 ">
+    <div class="col-md-2 ">
         <div class="row ">
             <img class="round" [attr.src]="server+product.logo" (click)="startFabrication()"/>
         </div>
@@ -7,17 +7,20 @@
             <span id="nb_Product"> {{product.quantite}} </span>  
         </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-10">
         <div class="row">
-            <div class="progress" #bar>
-                
-            </div>
+            <div class="progress" #bar>   </div>
+        </div>
+        <div class="row">            <span class="texte_revenu"> {{product.revenu}}</span>
         </div>
         <div class="row">
-            <div class="col-md-9">
-                    <button type="button" class="btn btn-dark float-right" >{{nbAchat}}  {{prix}}</button>
+            <div class="col-md-10">
+                <button type="button" class="btn btn-dark float-right" > Try  </button> 
+                <span> {{nbAchat}} death(s)</span>
+                <span> for {{prix}} </span>
+                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>  
             </div>
-            <div class="col-md-3">TPS</div>
+            <div class="col-md-2"> {{product.timeleft}}</div>
         </div>
     </div>
 </div>

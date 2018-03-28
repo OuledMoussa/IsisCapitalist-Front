@@ -1,18 +1,20 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<br/><br/>
+<br/>
 <div class="col-md-12 ">
   <div class="col-md-6">
       <img class="round" [attr.src]="server+world.logo" />
-      <span class="darwin" id="worldname"> {{world.name}} </span>
+      <span class="darwin" id="worldname">  Welcome to the World of {{world.name}} </span>
   </div>
-  <div class="col-md-2 ">
+  <div class="col-md-2 money_world">
     <span [innerHTML]="world.money | bigvalue"> </span> 
-    <img src="https://www.faire-livrer-des-fleurs.com/130-large_default/couronne-de-fleurs-deuil-roses-memoire.jpg" style="border-radius :50%;
-    padding:5px; height:70px;"/> 
+   <!-- <img src="https://www.faire-livrer-des-fleurs.com/130-large_default/couronne-de-fleurs-deuil-roses-memoire.jpg" style="border-radius :50%;
+    padding:5px; height:70px;"/> -->
+    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
   </div>
   <div class="col-md-4 ">
-      <button type="button" class="btn btn-dark float-right" (click)="choseQtt()">{{qtmulti}}</button>
-      <!--<label>Votre identifiant</label> : <input [()]="tag" placeholder="nom utilisateur" (change)=""/>-->
+    <button type="button" class="btn btn-dark float-right" (click)="choseQtt()">{{qtmulti}}</button>
+    <label>Votre identifiant</label> <!--: <input [()]="tag" placeholder="nom utilisateur" (change)=""/>-->
   </div>
 </div> 
 <br/><br/><br/>
@@ -35,15 +37,28 @@
 <!--Modal des managers -->
 <app-modal #managersModal> 
   <div class="app-modal-header"> 
-    <h4 class="modal-title">Managers make you feel better or no !</h4> 
+    <h3 class="modal-title">Managers help you to succeed your death ! </h3> 
   </div> 
   <div class="app-modal-body"> 
-    <div *ngFor="let manager of world.managers.pallier">
-      insérer ici les managers 
+    <div class="manager" *ngFor="let manager of world.managers.pallier">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-sm-6 col-md-4">
+            <img class="round" [attr.src]="server+manager.logo" />
+          </div>
+          <div class="caption">
+            <h4>{{manager.name}}</h4>
+            <p>
+              <span>{{manager.seuil}}</span><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            </p>
+            <p></p><a href="#" class="btn btn-default" role="button">Hire</a>
+          </div>
+        </div>
+      </div>
     </div> 
   </div> 
   <div class="app-modal-footer"> 
-     <button type="button" class="btn btn-default" (click)="managersModal.hide()">Close</button> 
+    <button type="button" class="btn btn-default" (click)="managersModal.hide()">Close</button> 
   </div>    
 </app-modal>
 <!--Modal des managers -->
@@ -62,6 +77,11 @@
   </div>
 </div>
 <!--Fin liste des produits -->
+
+<img src="https://www.tenstickers.fr/stickers/img/preview/sticker-cimetiere-halloween-4682.png" style="width: 25%;
+height: 250px; float:right; background-size:100%" />
+<img src="http://religioner.no/wp-content/uploads/2016/11/religioner.no_dod-og-begravet-gratis.png" style="width: 25%;
+height: 250px; float:center; background-size:100%" />
 
 
 
