@@ -1,10 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, Input } from '@angular/core';
 import { Product, World } from '../world';
-import { Input } from '@angular/core';
 import { RestserviceService } from '../restservice.service';
-import { ViewChild } from '@angular/core';
-import { Output } from '@angular/core';
-import { EventEmitter } from '@angular/core';
+import { AppComponent } from '../app.component';
 
 
 declare var require; 
@@ -22,7 +19,12 @@ export class ProductComponent implements OnInit {
   progressbar: any;
   lastupdate: any;
   world: World;
-  _qtmulti:string;
+  _qtmulti: string;
+  _money: number;
+  _etat: number;
+  nbAchat: number = 1;
+  prix: number;
+  
 
   @ViewChild('bar') progressBarItem;
 
@@ -38,6 +40,28 @@ export class ProductComponent implements OnInit {
       this.calcMaxCanBuy();
   }
 
+  calcMaxCanBuy() {
+    console.log(this._etat);
+    switch(this._qtmulti) {
+      case "X1":
+        this.prix=this.product.cout;
+        this.nbAchat=1;
+        break;
+      case "X10":
+        this.prix=this.product.cout*((1-Math.pow(this.product.croissance, 11) )/ (1-this.product.croissance));
+        this.nbAchat=10;
+        break;
+      case "X100":
+        this.prix=this.product.cout*((1-Math.pow(this.product.croissance, 101) )/ (1-this.product.croissance));
+        this.nbAchat=100;
+        break;
+      case "MAX":
+        this.nbAchat = Math.log(1-(this._money/this.product.cout)*(1-this.product.croissance))/Math.log(this.product.croissance);
+        this.prix=this.product.cout*((1-Math.pow(this.product.croissance, this.nbAchat+1) )/ (1-this.product.croissance));
+        break;
+    }
+  }
+
   @Output() 
   notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
   
@@ -50,6 +74,7 @@ export class ProductComponent implements OnInit {
     this.progressbar = new ProgressBar.Line(this.progressBarItem.nativeElement, 
       { strokeWidth: 50, color: 'black' });
     setInterval(() => { this.calcScore(); }, 100);
+    this.calcMaxCanBuy();
   }
 
   calcScore(){
@@ -72,8 +97,6 @@ export class ProductComponent implements OnInit {
       this.progressbar.animate(1, { duration: this.product.vitesse });
       this.lastupdate=Date.now();
     }
-    //alert(this.product.vitesse);
-    
   }
 
 
