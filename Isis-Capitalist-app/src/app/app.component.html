@@ -51,7 +51,7 @@
             <p>
               <span>{{manager.seuil}}</span><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
             </p>
-            <p></p><a href="#" class="btn btn-default" role="button">Hire</a>
+            <p></p><a href="#" class="btn btn-default" role="button" (click)="hireManager()">Hire</a>
           </div>
         </div>
       </div>
@@ -77,6 +77,14 @@
   </div>
 </div>
 <!--Fin liste des produits -->
+
+<!-- Message éphémère pour l'utilisateur-->
+<div>
+  <toaster-container>
+    
+  </toaster-container>
+</div>
+
 
 <img src="https://www.tenstickers.fr/stickers/img/preview/sticker-cimetiere-halloween-4682.png" style="width: 25%;
 height: 250px; float:right; background-size:100%" />

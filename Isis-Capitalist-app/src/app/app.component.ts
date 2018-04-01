@@ -47,4 +47,15 @@ export class AppComponent {
     }
   }
 
+ hireManager(){
+    /*if(this.world.money<=){ // vérifier qu'il y a assez d'argent pour acheter le manager
+      alert("Vous n'avez pas assez pour acheter ce manager");
+    }*/
+    //enlever le prix du manager à this.world.money
+    alert("Bravo vous avez acheté un manager");
+    //cacher le manager de la liste 
+    // passer managers.unlocked = true
+    
+  }
+
 }

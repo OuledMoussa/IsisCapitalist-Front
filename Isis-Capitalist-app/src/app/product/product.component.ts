@@ -20,8 +20,7 @@ export class ProductComponent implements OnInit {
   lastupdate: any;
   world: World;
   _qtmulti: string;
-  _money: number;
-  _etat: number;
+  _money: number; // n'est pas connu ici 
   nbAchat: number = 1;
   prix: number;
   
@@ -41,7 +40,7 @@ export class ProductComponent implements OnInit {
   }
 
   calcMaxCanBuy() {
-    console.log(this._etat);
+    console.log(this._money); // est undefined car pas connu
     switch(this._qtmulti) {
       case "Buy X1":
         this.prix=this.product.cout;
@@ -56,7 +55,8 @@ export class ProductComponent implements OnInit {
         this.nbAchat=100;
         break;
       case "Buy MAX":
-        this.nbAchat = Math.log(1-(this._money/this.product.cout)*(1-this.product.croissance))/Math.log(this.product.croissance);
+        // ne marche pas sûrement à cause de this._money
+        this.nbAchat = Math.log(1-(this._money/this.product.cout)*(1-this.product.croissance))/Math.log(this.product.croissance); 
         this.prix=this.product.cout*((1-Math.pow(this.product.croissance, this.nbAchat+1) )/ (1-this.product.croissance));
         break;
     }
@@ -64,8 +64,6 @@ export class ProductComponent implements OnInit {
 
   @Output() 
   notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
-  
-  
   constructor(private service : RestserviceService) { 
     this.server = service.getServer();
   }
@@ -81,9 +79,14 @@ export class ProductComponent implements OnInit {
     if (this.product.timeleft!=0){
       this.product.timeleft -= Date.now()-this.lastupdate ;
       this.lastupdate=Date.now();
-      console.log(this.product.timeleft);
-      if (this.product.timeleft <= 0) {
+      //console.log(this.product.timeleft);
+      if (this.product.timeleft <= 0 && this.product.managerUnlocked==false) { // si le manager n'est pas acheté
         this.progressbar.set(0);
+        this.notifyProduction.emit(this.product);
+        this.product.timeleft=0;
+      }
+      if (this.product.timeleft <= 0 && this.product.managerUnlocked==true) { // si le manager est activé
+        //this.progressbar.set();
         this.notifyProduction.emit(this.product);
         this.product.timeleft=0;
       }
@@ -93,12 +96,19 @@ export class ProductComponent implements OnInit {
   startFabrication(){
     if (this.product.quantite!=0) {
       this.product.timeleft=this.product.vitesse;
-      console.log(this.product.timeleft);
       this.progressbar.animate(1, { duration: this.product.vitesse });
       this.lastupdate=Date.now();
     }
   }
 
-
+  buyProduct(){
+    /*if(this.prix<=this._money){ // vérifier qu'il y a assez d'argent pour acheter le produit
+      alert("Vous n'avez pas assez pour acheter ce produit");
+    }*/
+    //this._money -= this.prix //enlever la somme des produits à this.world.money
+    alert("Bravo vous avez acheté "+ this.nbAchat +"death(s)");
+    this.product.quantite += this.nbAchat; // augmente le nombre de produits
+    /*this.prix = this.prix *this.nbAchat; */ //augmente le revenu d'un click 
+  }
   
 }
