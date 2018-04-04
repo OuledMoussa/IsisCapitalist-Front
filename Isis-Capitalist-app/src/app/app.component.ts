@@ -14,7 +14,7 @@ export class AppComponent {
   world: World = new World(); 
   server: string;
   qtmulti: string = "Buy X1";
-  money: number;
+  //money: number = 0;
   etat: number = 0;
 
 
@@ -27,6 +27,12 @@ export class AppComponent {
     this.world.score += p.revenu;
     this.world.money += p.revenu;
   }
+
+  onBuyDone(n: Number) {
+    console.log(n);
+    this.world.money -= n.valueOf();
+  }
+  
 
   choseQtt() {
     this.etat+=1;

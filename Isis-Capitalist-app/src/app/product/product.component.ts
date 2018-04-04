@@ -39,25 +39,34 @@ export class ProductComponent implements OnInit {
       this.calcMaxCanBuy();
   }
 
+  @Input()
+  set money(value: number) {
+    this._money = value;
+  }
+
   calcMaxCanBuy() {
-    console.log(this._money); // est undefined car pas connu
+    //console.log(this._money);
     switch(this._qtmulti) {
       case "Buy X1":
         this.prix=this.product.cout;
+        this.prix=parseInt(this.prix.toString() ,10);
         this.nbAchat=1;
         break;
       case "Buy X10":
         this.prix=this.product.cout*((1-Math.pow(this.product.croissance, 11) )/ (1-this.product.croissance));
+        this.prix=parseInt(this.prix.toString() ,10);
         this.nbAchat=10;
         break;
       case "Buy X100":
         this.prix=this.product.cout*((1-Math.pow(this.product.croissance, 101) )/ (1-this.product.croissance));
+        this.prix=parseInt(this.prix.toString() ,10);
         this.nbAchat=100;
         break;
       case "Buy MAX":
-        // ne marche pas sûrement à cause de this._money
         this.nbAchat = Math.log(1-(this._money/this.product.cout)*(1-this.product.croissance))/Math.log(this.product.croissance); 
-        this.prix=this.product.cout*((1-Math.pow(this.product.croissance, this.nbAchat+1) )/ (1-this.product.croissance));
+        this.nbAchat=parseInt(this.nbAchat.toString() ,10);
+        this.prix = this.product.cout*((1-Math.pow(this.product.croissance, this.nbAchat) )/ (1-this.product.croissance));
+        this.prix=parseInt(this.prix.toString() ,10);
         break;
     }
   }
@@ -67,6 +76,11 @@ export class ProductComponent implements OnInit {
   constructor(private service : RestserviceService) { 
     this.server = service.getServer();
   }
+
+  @Output() 
+  onBuy: EventEmitter<Number> = new EventEmitter<Number>();
+  
+  
 
   ngOnInit() {
     this.progressbar = new ProgressBar.Line(this.progressBarItem.nativeElement, 
@@ -109,6 +123,7 @@ export class ProductComponent implements OnInit {
     alert("Bravo vous avez acheté "+ this.nbAchat +"death(s)");
     this.product.quantite += this.nbAchat; // augmente le nombre de produits
     /*this.prix = this.prix *this.nbAchat; */ //augmente le revenu d'un click 
+    this.onBuy.emit(this.prix);
   }
   
 }

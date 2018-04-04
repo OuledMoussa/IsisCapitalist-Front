@@ -6,7 +6,7 @@
       <span class="darwin" id="worldname">  Welcome to the World of {{world.name}} </span>
   </div>
   <div class="col-md-2 money_world">
-    <span [innerHTML]="world.money | bigvalue"> </span> 
+    <span [innerHTML]="world.money | bigvalue" (onBuy)="onBuyDone($event)"> </span> 
    <!-- <img src="https://www.faire-livrer-des-fleurs.com/130-large_default/couronne-de-fleurs-deuil-roses-memoire.jpg" style="border-radius :50%;
     padding:5px; height:70px;"/> -->
     <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
@@ -66,14 +66,14 @@
   <!--Liste des produits -->
 <div class="col-md-10 ">
   <div class="col-md-6 ">
-    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[0]" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
-    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[1]" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
-    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[2]" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
+    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[0]" [money]="world.money" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
+    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[1]" [money]="world.money" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
+    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[2]" [money]="world.money" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
   </div>
   <div class="col-md-6 ">
-    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[3]" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
-    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[4]" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
-    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[5]" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
+    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[3]" [money]="world.money" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
+    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[4]" [money]="world.money" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
+    <app-product [qtmulti]="qtmulti" [prod]="world.products.product[5]" [money]="world.money" (notifyProduction)="onProductionDone($event)" class="product col-md-12"></app-product>
   </div>
 </div>
 <!--Fin liste des produits -->
