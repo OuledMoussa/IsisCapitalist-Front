@@ -20,7 +20,7 @@ export class ProductComponent implements OnInit {
   lastupdate: any;
   world: World;
   _qtmulti: string;
-  _money: number; // n'est pas connu ici 
+  _money: number; 
   nbAchat: number = 1;
   prix: number;
   
@@ -78,7 +78,7 @@ export class ProductComponent implements OnInit {
   }
 
   @Output() 
-  onBuy: EventEmitter<Number> = new EventEmitter<Number>();
+  public onBuy: EventEmitter<Number> = new EventEmitter<Number>();
   
   
 
@@ -120,9 +120,9 @@ export class ProductComponent implements OnInit {
       alert("Vous n'avez pas assez pour acheter ce produit");
     }*/
     //this._money -= this.prix //enlever la somme des produits à this.world.money
-    alert("Bravo vous avez acheté "+ this.nbAchat +"death(s)");
+    alert("Bravo vous avez acheté "+ this.nbAchat +" death(s)");
     this.product.quantite += this.nbAchat; // augmente le nombre de produits
-    /*this.prix = this.prix *this.nbAchat; */ //augmente le revenu d'un click 
+    //this.prix = this.prix *this.nbAchat;  //augmente le revenu d'un click 
     this.onBuy.emit(this.prix);
   }
   

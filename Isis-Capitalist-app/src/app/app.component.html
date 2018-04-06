@@ -6,7 +6,7 @@
       <span class="darwin" id="worldname">  Welcome to the World of {{world.name}} </span>
   </div>
   <div class="col-md-2 money_world">
-    <span [innerHTML]="world.money | bigvalue" (onBuy)="onBuyDone($event)"> </span> 
+    <span [innerHTML]="world.money | bigvalue" (ProductComponent.onBuy)="onBuyDone($event)"> </span> 
    <!-- <img src="https://www.faire-livrer-des-fleurs.com/130-large_default/couronne-de-fleurs-deuil-roses-memoire.jpg" style="border-radius :50%;
     padding:5px; height:70px;"/> -->
     <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>

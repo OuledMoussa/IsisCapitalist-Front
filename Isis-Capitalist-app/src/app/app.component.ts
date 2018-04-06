@@ -61,7 +61,5 @@ export class AppComponent {
     alert("Bravo vous avez acheté un manager");
     //cacher le manager de la liste 
     // passer managers.unlocked = true
-    
   }
-
 }
