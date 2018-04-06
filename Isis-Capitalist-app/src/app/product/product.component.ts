@@ -80,7 +80,6 @@ export class ProductComponent implements OnInit {
   @Output() 
   public onBuy: EventEmitter<Number> = new EventEmitter<Number>();
   
-  
 
   ngOnInit() {
     this.progressbar = new ProgressBar.Line(this.progressBarItem.nativeElement, 
@@ -116,14 +115,17 @@ export class ProductComponent implements OnInit {
   }
 
   buyProduct(){
-    /*if(this.prix<=this._money){ // vérifier qu'il y a assez d'argent pour acheter le produit
+    //console.log("argent " + this._money);
+    //console.log("prix" + this.prix);
+    if(this._money <= this.prix){ // vérifier qu'il y a assez d'argent pour acheter le produit
       alert("Vous n'avez pas assez pour acheter ce produit");
-    }*/
-    //this._money -= this.prix //enlever la somme des produits à this.world.money
-    alert("Bravo vous avez acheté "+ this.nbAchat +" death(s)");
+    }else{
+   // this._money -= this.prix //enleve la somme des produits ici 
+    console.log("argent " + this._money); 
+    alert(" Bravo vous avez acheté "+ this.nbAchat +" death(s)");
     this.product.quantite += this.nbAchat; // augmente le nombre de produits
-    //this.prix = this.prix *this.nbAchat;  //augmente le revenu d'un click 
-    this.onBuy.emit(this.prix);
+    this.product.revenu = this.product.quantite*this.product.revenu *this.product.croissance;  //augmente le revenu d'un click 
+    this.onBuy.emit(this.prix); // notifie qu'il doit enlever la somme du prix 
+    }
   }
-  
 }

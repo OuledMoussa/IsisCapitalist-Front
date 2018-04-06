@@ -14,7 +14,6 @@ export class AppComponent {
   world: World = new World(); 
   server: string;
   qtmulti: string = "Buy X1";
-  //money: number = 0;
   etat: number = 0;
 
 
@@ -54,6 +53,7 @@ export class AppComponent {
   }
 
  hireManager(){
+   console.log(this.world.managers.pallier[1].seuil);
     /*if(this.world.money<=){ // vérifier qu'il y a assez d'argent pour acheter le manager
       alert("Vous n'avez pas assez pour acheter ce manager");
     }*/
