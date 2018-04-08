@@ -70,19 +70,21 @@ export class AppComponent {
     return this.manAv;
   }
 
-  hireManager(){
-    //console.log(this.world.managers.pallier.filter);
+  hireManager(m: Pallier){
+    console.log(m.seuil);
+    //m.seuil
     
     //console.log(this.manager.seuil);
     
-    /*if (this.world.money <= this.world.managers.pallier[].seuil){
-     this.toasterService.pop('error', 'Deaths insufisantes ! ', reason.status);
+    if (this.world.money <= m.seuil){
+     this.toasterService.pop('error', 'Deaths insufisantes ! ', m.name);
     }else {
-     this.toasterService.pop('success', 'Manager hired ! ', this.manager.name);
-     this.world.money -= this.manager.seuil;
-    }*/
+     this.toasterService.pop('success', 'Manager hired ! ', m.name);
+     this.world.money -= m.seuil;
+     m.unlocked=true;
+     this.manAv = false;
+    }
     //alert(this.manager.seuil);
-    this.toasterService.pop('success', 'Manager hired ! ', this.manager.name);
      /*if(this.world.money<=){ // vérifier qu'il y a assez d'argent pour acheter le manager
        
      }*/
