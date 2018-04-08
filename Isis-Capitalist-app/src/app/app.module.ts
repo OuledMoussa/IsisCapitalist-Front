@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpModule} from "@angular/http";
-import { ToasterModule } from 'angular2-toaster';
+import { ToasterModule, ToasterService } from 'angular2-toaster';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { ProductComponent } from './product/product.component';
@@ -23,7 +23,8 @@ import { ModalComponent } from './modal/modal.component';
     BrowserAnimationsModule,
     ToasterModule
   ],
-  providers: [RestserviceService],
-  bootstrap: [AppComponent]
+  providers: [RestserviceService, ToasterModule, ToasterService],
+  bootstrap: [AppComponent],
+  
 })
 export class AppModule { }

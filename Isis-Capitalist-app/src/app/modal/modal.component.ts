@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Pallier, Product, World } from '../world';
 
 @Component({
   selector: 'app-modal',
@@ -26,6 +27,9 @@ export class ModalComponent  {
 
   public visible = false; 
   public visibleAnimate = false; 
+  manager: Pallier;
+  _money: number; 
+  world: World;
   
   public show(): void { 
     this.visible = true; 

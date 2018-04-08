@@ -1,25 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { RestserviceService } from './restservice.service';
 import { World, Product, Pallier } from './world';
-import { Output } from '@angular/core';
-import { EventEmitter } from '@angular/core';
+import { ToasterModule, ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [ToasterModule]
 })
 
 export class AppComponent {
   world: World = new World(); 
-  server: string;
+  server: string; 
   qtmulti: string = "Buy X1";
   etat: number = 0;
+  manager: Pallier;
+  toasterService: ToasterService;
+  manAv: boolean = false;
 
 
-  constructor(private service : RestserviceService) {
+  constructor(private service : RestserviceService, toasterService: ToasterService){
     this.server = service.getServer();
+    this.toasterService = toasterService;
     service.getWorld().then(world => { this.world = world; });
+  }
+
+  ngOnInit() {
+    setInterval(() => { this.managerAvailable();
+    }, 100);
   }
 
   onProductionDone(p: Product) {
@@ -51,15 +60,35 @@ export class AppComponent {
         break;
     }
   }
-
- hireManager(){
-   console.log(this.world.managers.pallier[1].seuil);
-    /*if(this.world.money<=){ // vérifier qu'il y a assez d'argent pour acheter le manager
-      alert("Vous n'avez pas assez pour acheter ce manager");
-    }*/
-    //enlever le prix du manager à this.world.money
-    alert("Bravo vous avez acheté un manager");
-    //cacher le manager de la liste 
-    // passer managers.unlocked = true
+  
+  managerAvailable(): boolean {
+    this.world.managers.pallier.forEach(element => {
+      if(element.seuil < this.world.money && element.unlocked == false) {
+        this.manAv = true;
+      }
+    });
+    return this.manAv;
   }
+
+  hireManager(){
+    //console.log(this.world.managers.pallier.filter);
+    
+    //console.log(this.manager.seuil);
+    
+    /*if (this.world.money <= this.world.managers.pallier[].seuil){
+     this.toasterService.pop('error', 'Deaths insufisantes ! ', reason.status);
+    }else {
+     this.toasterService.pop('success', 'Manager hired ! ', this.manager.name);
+     this.world.money -= this.manager.seuil;
+    }*/
+    //alert(this.manager.seuil);
+    this.toasterService.pop('success', 'Manager hired ! ', this.manager.name);
+     /*if(this.world.money<=){ // vérifier qu'il y a assez d'argent pour acheter le manager
+       
+     }*/
+     //enlever le prix du manager à this.world.money
+     
+     //cacher le manager de la liste 
+     // passer managers.unlocked = true
+   }
 }

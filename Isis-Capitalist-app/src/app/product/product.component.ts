@@ -23,6 +23,7 @@ export class ProductComponent implements OnInit {
   _money: number; 
   nbAchat: number = 1;
   prix: number;
+  barIsRunning: boolean = false;
   
 
   @ViewChild('bar') progressBarItem;
@@ -97,17 +98,20 @@ export class ProductComponent implements OnInit {
         this.progressbar.set(0);
         this.notifyProduction.emit(this.product);
         this.product.timeleft=0;
+        this.barIsRunning = false;
       }
       if (this.product.timeleft <= 0 && this.product.managerUnlocked==true) { // si le manager est activé
         //this.progressbar.set();
         this.notifyProduction.emit(this.product);
         this.product.timeleft=0;
+        this.barIsRunning = false;
       }
     }
   }
 
   startFabrication(){
-    if (this.product.quantite!=0) {
+    if (this.product.quantite!=0 && this.barIsRunning == false) {
+      this.barIsRunning = true;
       this.product.timeleft=this.product.vitesse;
       this.progressbar.animate(1, { duration: this.product.vitesse });
       this.lastupdate=Date.now();
@@ -117,7 +121,7 @@ export class ProductComponent implements OnInit {
   buyProduct(){
     //console.log("argent " + this._money);
     //console.log("prix" + this.prix);
-    if(this._money <= this.prix){ // vérifier qu'il y a assez d'argent pour acheter le produit
+    if(this._money < this.prix){ // vérifier qu'il y a assez d'argent pour acheter le produit
       alert("Vous n'avez pas assez pour acheter ce produit");
     }else{
    // this._money -= this.prix //enleve la somme des produits ici 
