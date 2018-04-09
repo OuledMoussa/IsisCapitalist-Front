@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, Input } from '@angular/core';
 import { RestserviceService } from './restservice.service';
 import { World, Product, Pallier } from './world';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
+import { ProductComponent } from './product/product.component';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,10 @@ export class AppComponent {
   manager: Pallier;
   toasterService: ToasterService;
   manAv: boolean = false;
+  managerBuyable: boolean = false;
+  //productComponentInstance: any;
 
+  @Input() productComponentInstance: ProductComponent;
 
   constructor(private service : RestserviceService, toasterService: ToasterService){
     this.server = service.getServer();
@@ -65,24 +69,30 @@ export class AppComponent {
     this.world.managers.pallier.forEach(element => {
       if(element.seuil < this.world.money && element.unlocked == false) {
         this.manAv = true;
+        this.managerBuyable = true;
       }
     });
     return this.manAv;
   }
 
+
+  //@Output()
   hireManager(m: Pallier){
-    console.log(m.seuil);
-    //m.seuil
-    
-    //console.log(this.manager.seuil);
-    
+    //console.log(m.seuil);
     if (this.world.money <= m.seuil){
      this.toasterService.pop('error', 'Deaths insufisantes ! ', m.name);
     }else {
-     this.toasterService.pop('success', 'Manager hired ! ', m.name);
-     this.world.money -= m.seuil;
-     m.unlocked=true;
-     this.manAv = false;
+      this.toasterService.pop('success', 'Manager hired ! ', m.name);
+      this.world.money -= m.seuil;
+      m.unlocked=true;
+      this.world.products.product.forEach(element => {
+        if(element.id == m.idcible) {
+          element.managerUnlocked=true;
+          this.manAv = false;
+          this.productComponentInstance.startFabrication();
+          
+        }
+      });
     }
     //alert(this.manager.seuil);
      /*if(this.world.money<=){ // vérifier qu'il y a assez d'argent pour acheter le manager
