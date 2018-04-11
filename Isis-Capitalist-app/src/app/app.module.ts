@@ -8,6 +8,7 @@ import { ProductComponent } from './product/product.component';
 import { RestserviceService } from './restservice.service';
 import { BigvaluePipe } from './bigvalue.pipe';
 import { ModalComponent } from './modal/modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,9 +22,10 @@ import { ModalComponent } from './modal/modal.component';
     BrowserModule,
     HttpModule,
     BrowserAnimationsModule,
-    ToasterModule
+    ToasterModule,
+    FormsModule
   ],
-  providers: [RestserviceService, ToasterModule, ToasterService],
+  providers: [RestserviceService, ToasterModule, ToasterService, ProductComponent],
   bootstrap: [AppComponent],
   
 })

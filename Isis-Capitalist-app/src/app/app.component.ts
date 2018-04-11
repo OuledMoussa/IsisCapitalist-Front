@@ -4,6 +4,7 @@ import { World, Product, Pallier } from './world';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
 import { ProductComponent } from './product/product.component';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,25 +21,41 @@ export class AppComponent {
   toasterService: ToasterService;
   manAv: boolean = false;
   managerBuyable: boolean = false;
-  //productComponentInstance: any;
+  username: string;
+  productComponentInstance: ProductComponent;
+  cashUpgrade: Pallier;
+  angelUpgrade: Pallier;
 
-  @Input() productComponentInstance: ProductComponent;
+  //@Input() productComponentInstance: ProductComponent;
 
-  constructor(private service : RestserviceService, toasterService: ToasterService){
+  constructor(private service : RestserviceService, toasterService: ToasterService, productComponentInstance: ProductComponent){
     this.server = service.getServer();
     this.toasterService = toasterService;
+    this.productComponentInstance = productComponentInstance;
     service.getWorld().then(world => { this.world = world; });
   }
+  
 
   ngOnInit() {
     setInterval(() => { this.managerAvailable();
     }, 100);
+    this.username = localStorage.getItem("username");
+    this.onUsernameChanged();
+  }
+  
+  onUsernameChanged() {
+    this.username = localStorage.getItem("username");
+    if(this.username == null) {
+      this.username = "Captain" + Math.floor(Math.random() * 10000).toString();
+      localStorage.setItem("username", this.username);
+    }else localStorage.setItem("username", this.username);
   }
 
   onProductionDone(p: Product) {
     this.world.score += p.revenu;
     this.world.money += p.revenu;
   }
+  
 
   onBuyDone(n: Number) {
     console.log(n);
@@ -75,8 +92,7 @@ export class AppComponent {
     return this.manAv;
   }
 
-
-  //@Output()
+  @Output()
   hireManager(m: Pallier){
     //console.log(m.seuil);
     if (this.world.money <= m.seuil){
@@ -89,18 +105,12 @@ export class AppComponent {
         if(element.id == m.idcible) {
           element.managerUnlocked=true;
           this.manAv = false;
-          this.productComponentInstance.startFabrication();
-          
+          this.managerBuyable = false;
+
+          //this.productComponentInstance.startFabrication();
         }
+        
       });
     }
-    //alert(this.manager.seuil);
-     /*if(this.world.money<=){ // vérifier qu'il y a assez d'argent pour acheter le manager
-       
-     }*/
-     //enlever le prix du manager à this.world.money
-     
-     //cacher le manager de la liste 
-     // passer managers.unlocked = true
    }
 }

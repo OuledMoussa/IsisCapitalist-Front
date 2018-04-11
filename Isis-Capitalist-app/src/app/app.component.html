@@ -14,6 +14,7 @@
   </div>
   <div class="col-md-4 ">
     <button type="button" class="btn btn-dark float-right" (click)="choseQtt()">{{qtmulti}}</button>
+    <input type="text" [(ngModel)]="username" (change)="onUsernameChanged()"/>
     <label>Votre identifiant</label> <!--: <input [()]="tag" placeholder="nom utilisateur" (change)=""/>-->
   </div>
 </div> 
@@ -25,9 +26,9 @@
     <br/><br/>
     <div class="btn btn-dark float-right" data-toggle="modal" >  Unlocks </div>
     <br/><br/>
-    <div class="btn btn-dark float-right" data-toggle="modal" > <span *ngIf="" class="badge">New</span> Cash Upgrades </div>
+    <div class="btn btn-dark float-right" data-toggle="modal" (click)="cashUpgradesModal.show()"> <span *ngIf="cashAv" class="badge">New</span> Cash Upgrades </div>
     <br/><br/>
-    <div class="btn btn-dark float-right" data-toggle="modal" > <span *ngIf="" class="badge">New</span> Angel Upgrades </div>
+    <div class="btn btn-dark float-right" data-toggle="modal" > <span *ngIf="angAv" class="badge">New</span> Angel Upgrades </div>
     <br/><br/>
     <div class="btn btn-dark float-right" data-toggle="modal" (click)="managersModal.show()" > <span *ngIf="manAv" class="badge">New</span> Managers </div>
     <br/><br/>
@@ -78,6 +79,37 @@
   </div>    
 </app-modal>
 <!--Modal des managers -->
+
+<!--Modal des Cash Upgrades-->
+
+<app-modal #cashUpgradesModal> 
+  <div class="app-modal-header"> 
+    <h3 class="modal-title"> What other death bonuses could you use?? </h3> 
+  </div> 
+  <div class="app-modal-body"> 
+    <div class="upgrade" *ngFor="let upgrade of world.upgrades.pallier" >
+      <div class="row" ngIf="">
+        <div class="col-md-12">
+          <div class="col-sm-6 col-md-4">
+            <img class="round" [attr.src]="server+upgrade.pallier.logo" />
+          </div>
+          <div class="caption">
+            <h4>{{upgrade.ratio}}</h4>
+            <p>
+              <span>{{upgrade.seuil}}</span><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            </p>
+            <p></p><button type="button" class="btn btn-default"  (click)="buyUpgrade(upgrade)" >Buy</button>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div> 
+  <div class="app-modal-footer"> 
+    <button type="button" class="btn btn-default" (click)="cashUpgradesModal.hide()">Close</button> 
+  </div>    
+</app-modal>
+
+<!--Modal des Cash Upgrades-->
 
 
 

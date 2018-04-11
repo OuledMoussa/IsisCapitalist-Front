@@ -1,5 +1,4 @@
 import { Http, Response, Headers } from '@angular/http' 
-
 import { World, Pallier, Product } from './world';
 import { Injectable } from '@angular/core';
 
@@ -7,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class RestserviceService {
   server = "http://localhost:8080/IsisCapitalist/"; 
   user = "";
+
 
   constructor(private http: Http) { }
 
@@ -39,5 +39,8 @@ export class RestserviceService {
     var headers = new Headers(); 
     headers.append("X-User",user); 
   return headers; 
-}
+  }
+  putManager(manager : Pallier): Promise<Response> { 
+    return this.http.put(this.server + "webresources/generic/manager", manager, { headers: this.setHeaders(this.user)} ) .toPromise(); 
+  }
 }

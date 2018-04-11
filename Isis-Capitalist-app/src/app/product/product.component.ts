@@ -27,7 +27,7 @@ export class ProductComponent implements OnInit {
   revenu: number;
   barIsRunning: boolean = false;
   buyable: boolean = false;
-  //toasterService: ToasterService;
+  toasterService: ToasterService;
   
 
   @ViewChild('bar') progressBarItem;
@@ -139,14 +139,12 @@ export class ProductComponent implements OnInit {
     if(this._money < this.prix){ // vérifier qu'il y a assez d'argent pour acheter le produit
       alert("Vous n'avez pas assez pour acheter ce produit");
     }else{
-   // this._money -= this.prix //enleve la somme des produits ici 
-    //console.log("argent " + this._money); 
-    alert(" Bravo vous avez acheté "+ this.nbAchat +" death(s)");
-    //this.toasterService.pop('error', " Bravo vous avez acheté "+ this.nbAchat +" death(s)");
+    //alert(" Bravo vous avez acheté "+ this.nbAchat +" death(s)");
     this.product.quantite += this.nbAchat; // augmente le nombre de produits
     this.product.revenu = this.product.quantite*this.product.revenu *this.product.croissance;  //augmente le revenu d'un click 
     this.onBuy.emit(this.prix); // notifie qu'il doit enlever la somme du prix 
     this.buyable = false;
+    this.toasterService.pop('success', " Bravo vous avez acheté "+ this.nbAchat +" death(s)");
     }
   }
 }
