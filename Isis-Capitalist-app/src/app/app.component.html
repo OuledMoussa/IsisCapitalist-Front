@@ -24,11 +24,11 @@
 <div>
   <div class="col-md-2 col-sm-2">
     <br/><br/>
-    <div class="btn btn-dark float-right" data-toggle="modal" >  Unlocks </div>
+    <div class="btn btn-dark float-right" data-toggle="modal" (click)="unlocksModal.show()">  Unlocks </div>
     <br/><br/>
     <div class="btn btn-dark float-right" data-toggle="modal" (click)="cashUpgradesModal.show()"> <span *ngIf="cashAv" class="badge">New</span> Cash Upgrades </div>
     <br/><br/>
-    <div class="btn btn-dark float-right" data-toggle="modal" > <span *ngIf="angAv" class="badge">New</span> Angel Upgrades </div>
+    <div class="btn btn-dark float-right" data-toggle="modal" (click)="angelUpgradesModal.show()"> <span *ngIf="angAv" class="badge">New</span> Angel Upgrades </div>
     <br/><br/>
     <div class="btn btn-dark float-right" data-toggle="modal" (click)="managersModal.show()" > <span *ngIf="manAv" class="badge">New</span> Managers </div>
     <br/><br/>
@@ -50,6 +50,93 @@
   </div>
 </div>
 <!--Fin liste des produits -->
+
+<!--Modal des Cash Upgrades-->
+<app-modal #cashUpgradesModal> 
+  <div class="app-modal-header"> 
+    <h3 class="modal-title"> What other death bonuses could you use??  </h3> 
+  </div> 
+  <div class="app-modal-body"> 
+    <div class="upgrade" *ngFor="let upgrade of world.upgrades.pallier" >
+      <div class="row" >
+        <div class="col-md-12">
+          <div class="col-sm-6 col-md-4">
+            <img class="round" [attr.src]="server+upgrade.logo" />
+          </div>
+          <div class="caption">
+            <h4>{{upgrade.name}}</h4>
+            <p>
+              <span>{{upgrade.seuil}}</span><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            </p>
+            <p></p><button type="button" class="btn btn-default"  (click)="buyUpgrade(upgrade)" [disabled]="true">Buy</button>
+          </div> 
+        </div>
+      </div>
+    </div> 
+  </div> 
+  <div class="app-modal-footer"> 
+    <button type="button" class="btn btn-default" (click)="cashUpgradesModal.hide()">Close</button> 
+  </div>    
+</app-modal>
+<!--Modal des Cash Upgrades-->
+
+<!--Modal des Unlocks-->
+<app-modal #unlocksModal> 
+  <div class="app-modal-header"> 
+    <h3 class="modal-title"> What other death bonuses could you use??  </h3> 
+  </div> 
+  <div class="app-modal-body"> 
+    <div class="unlock" *ngFor="let unlock of world.allunlocks.pallier" >
+      <div class="row" >
+        <div class="col-md-12">
+          <div class="col-sm-6 col-md-4">
+            <img class="round" [attr.src]="server+unlock.logo" />
+          </div>
+          <div class="caption">
+            <h4>{{unlock.name}}</h4>
+            <p>
+              <span>{{unlock.seuil}}</span><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            </p>
+            <!--<p></p><button type="button" class="btn btn-default"  >Buy</button> -->
+          </div> 
+        </div>
+      </div>
+    </div> 
+  </div> 
+  <div class="app-modal-footer"> 
+    <button type="button" class="btn btn-default" (click)="cashUpgradesModal.hide()">Close</button> 
+  </div>    
+</app-modal>
+<!--Modal des Cash unlocks-->
+
+<!--Modal des Angels-->
+<app-modal #angelUpgradesModal> 
+  <div class="app-modal-header"> 
+    <h3 class="modal-title"> Wow Much Shinigami!!!  </h3> 
+  </div> 
+  <div class="app-modal-body"> 
+    <div class="angel" *ngFor="let angel of world.angelupgrades.pallier" >
+      <div class="row" >
+        <div class="col-md-12">
+          <div class="col-sm-6 col-md-4">
+            <img class="round" [attr.src]="server+angel.logo" />
+          </div>
+          <div class="caption">
+            <h4>{{angel.name}}</h4>
+            <p>
+              <span>{{angel.seuil}}</span><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            </p>
+            <p></p><button type="button"  class="btn btn-default" [disabled]="true" > Buy </button>
+          </div> 
+        </div>
+      </div>
+    </div> 
+  </div> 
+  <div class="app-modal-footer"> 
+    <button type="button" class="btn btn-default" (click)="cashUpgradesModal.hide()">Close</button> 
+  </div>    
+</app-modal>
+<!--Modal des Angels-->
 
 <!--Modal des managers -->
 <app-modal #managersModal> 
@@ -79,38 +166,6 @@
   </div>    
 </app-modal>
 <!--Modal des managers -->
-
-<!--Modal des Cash Upgrades-->
-
-<app-modal #cashUpgradesModal> 
-  <div class="app-modal-header"> 
-    <h3 class="modal-title"> What other death bonuses could you use?? </h3> 
-  </div> 
-  <div class="app-modal-body"> 
-    <div class="upgrade" *ngFor="let upgrade of world.upgrades.pallier" >
-      <div class="row" ngIf="">
-        <div class="col-md-12">
-          <div class="col-sm-6 col-md-4">
-            <img class="round" [attr.src]="server+upgrade.pallier.logo" />
-          </div>
-          <div class="caption">
-            <h4>{{upgrade.ratio}}</h4>
-            <p>
-              <span>{{upgrade.seuil}}</span><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-            </p>
-            <p></p><button type="button" class="btn btn-default"  (click)="buyUpgrade(upgrade)" >Buy</button>
-          </div>
-        </div>
-      </div>
-    </div> 
-  </div> 
-  <div class="app-modal-footer"> 
-    <button type="button" class="btn btn-default" (click)="cashUpgradesModal.hide()">Close</button> 
-  </div>    
-</app-modal>
-
-<!--Modal des Cash Upgrades-->
-
 
 
 <!-- Message éphémère-->
